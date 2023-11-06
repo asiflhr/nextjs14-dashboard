@@ -9,7 +9,7 @@ const InvoiceSchema = z.object({
   date: z.string(),
 })
 
-const CreateInvoice
+// const CreateInvoice
 
 export async function createInvoice(formData: FormData) {
   const rawFormData = {
