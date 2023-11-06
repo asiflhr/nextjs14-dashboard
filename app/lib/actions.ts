@@ -3,6 +3,22 @@ import { z } from 'zod'
 import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { signIn } from '@/auth'
+
+// sign in
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn('credentials', Object.fromEntries(formData))
+  } catch (e) {
+    if ((e as Error).message.includes('CredentialsSignin')) {
+      return 'CredentialsSignin'
+    }
+    throw e
+  }
+}
 
 const InvoiceSchema = z.object({
   id: z.string(),
